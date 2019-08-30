@@ -43,6 +43,9 @@ In module `build.gradle` file like this:
 	}
 
 ## USE IT
+
+### Log
+
 code:
 
     @DebugLog
@@ -58,5 +61,23 @@ close:
 
 	MyLog.setEnable(BuildConfig.DEBUG);
 
+### AntiDoubleClick
 
+code:
 
+    findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
+        @Override
+        @DoubleClick
+        public void onClick(View v) {
+            Toast.makeText(MainActivity.this, "ON CLICK...", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "onClick: ON CLICK");
+        }
+    });
+
+set intervals time:
+
+    MyClick.setIntervalsTime(1000);
+
+Disadvantage:
+
+* NOT FOR LAMADA
