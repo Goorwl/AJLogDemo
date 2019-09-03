@@ -1,6 +1,8 @@
 package com.goorwl.mylog;
 
 import android.util.ArrayMap;
+import android.util.Log;
+import android.view.View;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -31,16 +33,16 @@ public class MyClick {
 
     @Around("method()")
     public Object AntiDoubleClick(ProceedingJoinPoint joinPoint) throws Throwable {
-        CodeSignature signature         = (CodeSignature) joinPoint.getSignature();
-        String        declaringTypeName = signature.getDeclaringTypeName();
-        long          nanoTime          = System.currentTimeMillis();
-        Long          aLong             = tempArray.get(declaringTypeName);
+        CodeSignature signature = (CodeSignature) joinPoint.getSignature();
+        String        args      = String.valueOf(((View) joinPoint.getArgs()[0]).getId());
+        long          nanoTime  = System.currentTimeMillis();
+        Long          aLong     = tempArray.get(args);
         if (aLong != null) {
             if (nanoTime - aLong < intervalsTime) {
                 return null;
             }
         }
-        tempArray.put(declaringTypeName, nanoTime);
+        tempArray.put(args, nanoTime);
         return joinPoint.proceed();
     }
 }

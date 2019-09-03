@@ -74,6 +74,23 @@ code:
         }
     });
 
+or：    
+
+	@Override
+    @DoubleClick
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_test:
+                Log.e(TAG, "onClick: x");
+                break;
+            case R.id.btn_test1:
+                Log.e(TAG, "onClick: xx");
+                break;
+        }
+    }
+
+
+
 set intervals time:
 
     MyClick.setIntervalsTime(1000);

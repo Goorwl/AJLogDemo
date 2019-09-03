@@ -15,7 +15,7 @@ import com.goorwl.mylog.DebugLog;
 import com.goorwl.mylog.DoubleClick;
 import com.goorwl.mylog.MyClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
 
     public static Activity sActivity;
@@ -40,6 +40,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.btn_test).setOnClickListener(v -> {
+            Toast.makeText(MainActivity.this, "点击了一次", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "onClick: xxxxxxxxxxxx");
+        });
+
+        findViewById(R.id.btn_test).setOnClickListener(this);
+        findViewById(R.id.btn_test1).setOnClickListener(this);
+
+        int sum = getSum(2, 3);
+
     }
 
     @CheckPermission(declarePermission = Manifest.permission.READ_PHONE_STATE)
@@ -51,5 +61,18 @@ public class MainActivity extends AppCompatActivity {
     private int getSum(int a, int b) {
         SystemClock.sleep(15);
         return a + b;
+    }
+
+    @Override
+    @DoubleClick
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_test:
+                Log.e(TAG, "onClick: xxx");
+                break;
+            case R.id.btn_test1:
+                Log.e(TAG, "onClick: 111xxx");
+                break;
+        }
     }
 }
